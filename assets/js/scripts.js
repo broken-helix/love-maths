@@ -1,33 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@broken-helix 
-Code-Institute-Solutions
-/
-love-maths-2.0-sourcecode
-Public template
-generated from Code-Institute-Org/gitpod-full-template
-Code
-Issues
-Pull requests
-1
-Actions
-Projects
-Security
-Insights
-love-maths-2.0-sourcecode/03-displaying-the-question-and-answer/01-displaying-the-addition-question/assets/js/script.js /
-@AJGreaves
-AJGreaves Add missing semi-colons for jshint validation.
-Latest commit 44c1649 on Jun 11, 2021
- History
- 1 contributor
-71 lines (48 sloc)  1.57 KB
-
 // Wait for the DOM to finish loading before running the game
 // Get the button elements and add event listeners to them
 
@@ -37,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let button of buttons) {
         button.addEventListener("click", function() {
             if (this.getAttribute("data-type") === "submit") {
-                alert("You clicked Submit!");
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
@@ -68,11 +38,42 @@ function runGame(gameType) {
 
 }
 
+/**
+ * Checks the answer agaist the first element in
+ * the returned calculateCorrectAnswer array
+ */
 function checkAnswer() {
+
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let calculatedAnswer = calculateCorrectAnswer();
+    let isCorrect = userAnswer === calculatedAnswer[0];
+
+    if (isCorrect) {
+        alert("Hey! You got it right! :D");
+    } else {
+        alert(`Awwww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+    }
+
+    runGame(calculatedAnswer[1]);
 
 }
 
+/**
+ * Gets the operands (the numbers) and the operator (plus, minus etc)
+ * directly from the dom, and returns the correct answer.
+ */
 function calculateCorrectAnswer() {
+
+    let operand1 = parseInt(document.getElementById('operand1').innerText);
+    let operand2 = parseInt(document.getElementById('operand2').innerText);
+    let operator = document.getElementById("operator").innerText;
+
+    if (operator === "+") {
+        return [operand1 + operand2, "addition"];
+    } else {
+        alert(`Unimplemented operator ${operator}`);
+        throw `Unimplemented operator ${operator}. Aborting!`;
+    }
 
 }
 
