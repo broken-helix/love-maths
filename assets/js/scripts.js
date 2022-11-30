@@ -40,7 +40,6 @@ function runGame(gameType) {
 
     let num3 = Math.floor(Math.random() * 12) + 1;
     let num4 = Math.floor(Math.random() * 12) + 1;
-
     let num5 = num3 * 12;
 
     if (gameType === "addition") {
